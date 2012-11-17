@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.view.Menu;
 import com.Good.Geo.GeoLocation;
 import com.Good.Geo.GeoLocation.NoBearing;
+import com.wikitude.example.R;
 
 public class MainActivity extends Activity {
 

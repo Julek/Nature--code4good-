@@ -77,8 +77,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.activity_main);
+		curr = this;
 		try{
 			GeoLocation.setup_GeoLocation();
 		}

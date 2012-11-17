@@ -19,7 +19,7 @@ public class GeoLocation {
 	public static void setup_GeoLocation() throws NoBearing
 	{
 		locationManager = (LocationManager) MainActivity.curr.getSystemService(Context.LOCATION_SERVICE);
-		if(locationManager.getProvider(LocationManager.GPS_PROVIDER).supportsBearing())
+		if(!locationManager.getProvider(LocationManager.GPS_PROVIDER).supportsBearing())
 			throw new NoBearing();
 		tag = null;
 		listener = new LocListener();
