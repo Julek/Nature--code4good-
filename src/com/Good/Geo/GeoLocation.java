@@ -1,6 +1,6 @@
-package geo;
+package com.Good.Geo;
 
-import geo.Geotag;
+import com.Good.Geo.Geotag;
 
 public class GeoLocation {
 

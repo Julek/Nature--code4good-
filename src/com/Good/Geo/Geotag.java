@@ -1,4 +1,4 @@
-package geo;
+package com.Good.Geo;
 
 public class Geotag {
 
