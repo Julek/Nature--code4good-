@@ -2,10 +2,13 @@ package com.Good;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
 
+	public static Context curr;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
