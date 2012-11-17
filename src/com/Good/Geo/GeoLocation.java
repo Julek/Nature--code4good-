@@ -25,11 +25,15 @@ public class GeoLocation {
 	}
 
 	
-	public static Geotag getGeotag()
+	public static Geotag getGeotag() throws NoClue
 	{
 		lock.lock();
 		Geotag ret = tag;
 		lock.unlock();
+		
+		if(ret == null)
+			throw new NoClue();
+		
 		return ret;
 	}
 	
@@ -59,4 +63,8 @@ public class GeoLocation {
 		
 	}
 	
+	static class NoClue extends Exception
+	{
+		private static final long serialVersionUID = 773107550741108174L;
+	}
 }
