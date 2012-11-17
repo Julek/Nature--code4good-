@@ -1,6 +1,7 @@
 package com.Good.Geo;
 
 import java.util.concurrent.locks.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 import android.content.Context;
 import android.location.*;
@@ -11,18 +12,16 @@ import com.wikitude.example.*;
 
 public class GeoLocation {
 
-	static private Geotag tag;
+	static private Geotag tag = null;
 	static private LocationManager locationManager;
-	static private LocListener listener;
-	static Lock lock;
+	static private LocListener listener = new LocListener();
+	private static Lock lock = new ReentrantLock();
 	
 	public static void setup_GeoLocation() throws NoBearing
 	{
 		locationManager = (LocationManager) MainActivity.curr.getSystemService(Context.LOCATION_SERVICE);
 		if(!locationManager.getProvider(LocationManager.GPS_PROVIDER).supportsBearing())
 			throw new NoBearing();
-		tag = null;
-		listener = new LocListener();
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
 	}
 
