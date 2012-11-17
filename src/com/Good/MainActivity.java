@@ -1,5 +1,6 @@
 package com.Good;
 
+import com.example.good.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,17 +8,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
+import com.wikitude.architect.ArchitectView;
 import com.Good.Geo.GeoLocation;
 import com.Good.Geo.GeoLocation.NoBearing;
 
 public class MainActivity extends Activity {
 
 	public static Context curr;
+	public static ArchitectView global;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		curr = this;
+		
 		try{
 			GeoLocation.setup_GeoLocation();
 		}
@@ -39,6 +44,9 @@ public class MainActivity extends Activity {
 
 			alertDialog.show();
 		}
+		
+		ArchitectView global = new ArchitectView(null);
+		global.onCreate("");
 	}
 
 	@Override
