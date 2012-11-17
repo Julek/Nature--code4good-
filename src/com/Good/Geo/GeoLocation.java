@@ -42,14 +42,27 @@ public class GeoLocation {
 
 		public void onLocationChanged(Location location) {
 			lock.lock();
-			tag.setLattitude(location.getLatitude());
-			tag.setLongitude(location.getLongitude());
-			tag.setAltitude(location.getAltitude());
+			if(tag == null)
+			{
+				tag = new Geotag(location.getLatitude(), location.getLongitude(), location.getAltitude(), 0);
+			}
+			else
+			{	
+				tag.setLattitude(location.getLatitude());
+				tag.setLongitude(location.getLongitude());
+				tag.setAltitude(location.getAltitude());
+			}
 			lock.unlock();
 			return;
 		}
 
 		public void onProviderDisabled(String arg0) {
+			if(arg0 == LocationManager.GPS_PROVIDER)
+			{
+				lock.lock();
+				tag = null;
+				lock.unlock();
+			}
 			return;
 		}
 
