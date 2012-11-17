@@ -158,7 +158,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 		super.onResume();
 
 		this.architectView.onResume();
-		this.architectView.setLocation(TEST_ALTITUDE, TEST_LONGITUDE, TEST_ALTITUDE,1f);
+		this.architectView.setLocation(TEST_LATITUDE, TEST_LONGITUDE, TEST_ALTITUDE,1f);
 
 	}
     @Override
