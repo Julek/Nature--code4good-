@@ -15,12 +15,13 @@ public class GeoLocation {
 	static private LocListener listener;
 	static Lock lock;
 	
-	public static void setup_GeoLocation()
+	public static void setup_GeoLocation() throws NoBearing
 	{
+		locationManager = (LocationManager) com.Good.MainActivity.curr.getSystemService(Context.LOCATION_SERVICE);
+		if(locationManager.getProvider(LocationManager.GPS_PROVIDER).supportsBearing())
+			throw new NoBearing();
 		tag = null;
 		listener = new LocListener();
-		locationManager = (LocationManager) com.Good.MainActivity.curr.getSystemService(Context.LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, listener);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
 	}
 
@@ -44,13 +45,14 @@ public class GeoLocation {
 			lock.lock();
 			if(tag == null)
 			{
-				tag = new Geotag(location.getLatitude(), location.getLongitude(), location.getAltitude(), 0);
+				tag = new Geotag(location.getLatitude(), location.getLongitude(), location.getAltitude(), location.getBearing());
 			}
 			else
 			{	
 				tag.setLattitude(location.getLatitude());
 				tag.setLongitude(location.getLongitude());
 				tag.setAltitude(location.getAltitude());
+				tag.setBearing(location.getBearing());
 			}
 			lock.unlock();
 			return;
@@ -76,8 +78,14 @@ public class GeoLocation {
 		
 	}
 	
-	static class NoClue extends Exception
+	public static class NoClue extends Exception
 	{
 		private static final long serialVersionUID = 773107550741108174L;
 	}
+	
+	public static class NoBearing extends Exception
+	{
+		private static final long serialVersionUID = -754690391962814625L;
+	}
+	
 }

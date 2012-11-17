@@ -2,14 +2,14 @@ package com.Good.Geo;
 
 public class Geotag {
 
-	private double lattitude, longitude, altitude, degrees;
+	private double lattitude, longitude, altitude, bearing;
 	
-	public Geotag(double lattitude, double longitude, double altitude, double degrees)
+	public Geotag(double lattitude, double longitude, double altitude, double bearing)
 	{
 		this.lattitude = lattitude;
 		this.longitude = longitude;
 		this.altitude = altitude;
-		this.degrees = degrees;
+		this.bearing = bearing;
 	}
 	
 	public double getLattitude()
@@ -27,9 +27,9 @@ public class Geotag {
 		return altitude;
 	}
 	
-	public double getDegrees()
+	public double getBearing()
 	{
-		return degrees;
+		return bearing;
 	}
 	
 	public void setLattitude(double lattitude)
@@ -47,8 +47,8 @@ public class Geotag {
 		this.altitude = altitude;
 	}
 	
-	public void setDegrees(double degrees)
+	public void setBearing(double bearing)
 	{
-		this.degrees = degrees;
+		this.bearing = bearing;
 	}
 }
