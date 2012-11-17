@@ -7,6 +7,7 @@ import android.location.*;
 import android.os.Bundle;
 
 import com.Good.Geo.Geotag;
+import com.wikitude.example.*;
 
 public class GeoLocation {
 
@@ -17,8 +18,8 @@ public class GeoLocation {
 	
 	public static void setup_GeoLocation() throws NoBearing
 	{
-		locationManager = (LocationManager) com.Good.MainActivity.curr.getSystemService(Context.LOCATION_SERVICE);
-		if(locationManager.getProvider(LocationManager.GPS_PROVIDER).supportsBearing())
+		locationManager = (LocationManager) MainActivity.curr.getSystemService(Context.LOCATION_SERVICE);
+		if(!locationManager.getProvider(LocationManager.GPS_PROVIDER).supportsBearing())
 			throw new NoBearing();
 		tag = null;
 		listener = new LocListener();
