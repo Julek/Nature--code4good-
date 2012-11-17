@@ -1,0 +1,3 @@
+[submodule "server/minodb"]
+	path = server/minodb
+	url = git://github.com/nh2/minodb.git
