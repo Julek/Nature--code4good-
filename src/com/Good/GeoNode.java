@@ -42,4 +42,13 @@ public class GeoNode {
 		double d = R * c;
 		return d;
 	}
+	
+	public String toString(){
+		return this.tagType + " " +
+				this.tagDescr + " " +
+				this.tagName + " " +
+				this.latitude + " " +
+				this.longitude + " " +
+				this.altitude;
+	}
 }
