@@ -132,6 +132,8 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
         LinearLayout ll = (LinearLayout) findViewById(R.id.formLayout);
     	ll.setVisibility(View.INVISIBLE);
     	
+    	GeoNode node = new GeoNode("","","",TEST_LONGITUDE,TEST_LATITUDE,TEST_ALTITUDE);
+    	scomm = new ServerCommunication(node, ServerCommunication.CommunicationType.POST);
         //in order to inform the ARchitect framework about the user's location Androids LocationManager is used in this case
         //NOT USED IN THIS EXAMPLE
         //locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -158,8 +160,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
             		GeoNode node = new GeoNode(name,description,type,lon,lat,alt);
             		scomm = new ServerCommunication(node, ServerCommunication.CommunicationType.POST);
             		scomm.execute();
-            		
-            		Toast.makeText(getApplicationContext(), node.toString(), Toast.LENGTH_SHORT).show();
+            		Toast.makeText(getApplicationContext(), "Tag submitted successfully", Toast.LENGTH_LONG).show();
             		tagBtn.setText("Tag");
                 	LinearLayout ll = (LinearLayout) findViewById(R.id.formLayout);
                 	ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0));

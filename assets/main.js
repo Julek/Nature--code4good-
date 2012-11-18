@@ -1,7 +1,7 @@
 // Tutorial code using the ARchitect Javascript library
 $(function(){
     var files = ["tree.png", "river.png", "flower.png", "rock.png", "scenary.png", "caves.png"];
-    var strType = ["Tree", "River", "Flower", "Rock", "Scenary", "Cave"];
+    var strTypes = ["tree", "river", "flower", "rock", "scenary", "cave"];
 
     var Images = [];
 
@@ -84,11 +84,11 @@ $(function(){
             jsonObject[i].arLabel = label;
 
 			var pos = 0;
-			for(int i=0;i<strTypes.length;i++)
+			for(var j=0;j<strTypes.length;j++)
 			{
-				if(jsonObject[i].type == strTypes[i])
+				if(jsonObject[i].type == strTypes[j])
 				{
-				pos = i;
+				pos = j;
 				break;
 				}
 				
