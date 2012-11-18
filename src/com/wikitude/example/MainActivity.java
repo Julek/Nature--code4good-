@@ -292,9 +292,9 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 		JSONArray array = new JSONArray();
 		poiBeanList = new ArrayList<PoiBean>();
 		try {
-				scomm.setType(ServerCommunication.CommunicationType.GET);
 				try {
-					
+
+					scomm = new ServerCommunication(new GeoNode("","","",TEST_LONGITUDE,TEST_LATITUDE,TEST_ALTITUDE), ServerCommunication.CommunicationType.GET);		
 					List<GeoNode> lst = scomm.execute().get();
 				
 					for(int i=0;i<lst.size();i++) {

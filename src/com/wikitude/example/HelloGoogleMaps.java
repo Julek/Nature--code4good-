@@ -28,7 +28,7 @@ public class HelloGoogleMaps extends MapActivity{
 	    setContentView(R.layout.activity_maps);
 	    MapView mapView = (MapView) findViewById(R.id.mapview);
 	    mapView.setBuiltInZoomControls(true);
-	    
+	  /*  
 	    GeoNode node = new GeoNode("","","",0,0,0);
 	    ServerCommunication scomm = new ServerCommunication(node, ServerCommunication.CommunicationType.POST);
 	    try {
@@ -49,7 +49,7 @@ public class HelloGoogleMaps extends MapActivity{
 	    OverlayItem overlayitem = new OverlayItem(point, "Hola, Mundo!", "I'm in Mexico City!");
 	    
 	    itemizedoverlay.addOverlay(overlayitem);
-	    mapOverlays.add(itemizedoverlay);
+	    mapOverlays.add(itemizedoverlay);*/
 	}
 	
 

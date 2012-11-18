@@ -67,7 +67,7 @@ $(function(){
         };
     }
 
-    windows.remData = function(jsonData) {
+    window.remData = function() {
     	var all = document.getElementsByTagName("*");
 
     	while(all.length>1) {
