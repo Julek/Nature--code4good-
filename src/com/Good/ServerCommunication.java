@@ -86,6 +86,7 @@ public class ServerCommunication extends  AsyncTask<List<GeoNode>, List<GeoNode>
 			{
 				GeoNode n = new GeoNode();
 				JSONObject o = arr.getJSONObject(i);
+				n.tagType = o.getString("type");
 				n.tagName = o.getString("name");
 				n.tagDescr = o.getString("descr");
 				n.longitude = o.getDouble("long");
@@ -116,7 +117,7 @@ public class ServerCommunication extends  AsyncTask<List<GeoNode>, List<GeoNode>
 		try {
 		    // Add your data
 		    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-		    nameValuePairs.add(new BasicNameValuePair("id", java.util.UUID.randomUUID().toString()));
+		    nameValuePairs.add(new BasicNameValuePair("type", n.tagType));
 		    nameValuePairs.add(new BasicNameValuePair("name", n.tagName));
 		    nameValuePairs.add(new BasicNameValuePair("descr", n.tagDescr));
 		    nameValuePairs.add(new BasicNameValuePair("long", String.valueOf(n.longitude)));

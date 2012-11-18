@@ -8,17 +8,19 @@ public class GeoNode {
 	
 	public String tagName;
 	public String tagDescr;
+	public String tagType;
 	
 	public GeoNode() {
 		//
 	}
 	
-	public GeoNode(String tagName, String tagDescr, double longitude, double latitude, double altitude) {
+	public GeoNode(String tagName, String tagDescr, String tagType, double longitude, double latitude, double altitude) {
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.altitude = altitude;
 		this.tagDescr = tagDescr;
 		this.tagName = tagName;
+		this.tagType = tagType;
 	}
 	
 	
