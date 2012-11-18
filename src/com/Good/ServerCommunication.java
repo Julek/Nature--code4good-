@@ -34,6 +34,10 @@ public class ServerCommunication extends  AsyncTask<List<GeoNode>, List<GeoNode>
 	private GeoNode current;
 	private CommunicationType type;
 	
+	public void setType(CommunicationType type) {
+		this.type = type;
+	}
+	
 	public ServerCommunication(GeoNode n, CommunicationType type) {
 		this.current = n;
 		this.type = type;

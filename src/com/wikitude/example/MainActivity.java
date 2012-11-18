@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -20,15 +21,20 @@ import android.location.LocationListener;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
+
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.Good.GeoNode;
+import com.Good.ServerCommunication;
 import com.Good.Geo.GeoLocation;
 import com.Good.Geo.GeoLocation.NoBearing;
 import com.wikitude.architect.ArchitectUrlListener;
@@ -58,6 +64,7 @@ import com.wikitude.architect.ArchitectView;
  */
 public class MainActivity extends Activity implements ArchitectUrlListener, LocationListener{
 	
+	
 	public static Context curr;
 //	private static final String TAG = MainActivity.class.getSimpleName();
 	
@@ -73,9 +80,13 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 //	private Location loc;
 	private List<PoiBean> poiBeanList;
 	
+	//server communication
+	private static ServerCommunication scomm;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	
     	super.onCreate(savedInstanceState);
 		curr = this;
 		try{
@@ -102,6 +113,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
     	
         //let the application be fullscreen
         this.getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
+    	
         
         //check if the device fulfills the SDK'S minimum requirements
         if(!ArchitectView.isDeviceSupported(this))
@@ -124,6 +136,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
         //NOT USED IN THIS EXAMPLE
         //locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         //locManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, this);
+
         final Button tagBtn = (Button) findViewById(R.id.tagBtn);
         tagBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -139,8 +152,14 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
             		double lon = TEST_LONGITUDE + ((Math.random() - 0.5) / 500); 
             		double alt = TEST_ALTITUDE + ((Math.random() - 0.5) * 10);
            // 		callJavaScript("submitTag("+lat+","+lon+","+alt+");");
-            		//String type = (View) findViewById(R.id.SpinnerType);
-            		//GeoNode node = new GeoNode(findViewById(R.id.PlantName), findViewById(R.id.PlantDescription), , longitude, latitude, altitude)
+            		String type = ((Spinner) findViewById(R.id.SpinnerType)).getSelectedItem().toString();
+            		String description = ((EditText) findViewById(R.id.PlantDescription)).getText().toString();
+            		String name = ((EditText) findViewById(R.id.PlantName)).getText().toString();
+            		GeoNode node = new GeoNode(name,description,type,lon,lat,alt);
+            		scomm = new ServerCommunication(node, ServerCommunication.CommunicationType.POST);
+            		scomm.execute();
+            		
+            		Toast.makeText(getApplicationContext(), node.toString(), Toast.LENGTH_SHORT).show();
             		tagBtn.setText("Tag");
                 	LinearLayout ll = (LinearLayout) findViewById(R.id.formLayout);
                 	ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0));
@@ -148,6 +167,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
             	}
             }
         });
+
      }
     
 	@Override
@@ -262,20 +282,30 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 
 		JSONArray array = new JSONArray();
 		poiBeanList = new ArrayList<PoiBean>();
-		final int numTypes = 6;
-		String[] typeNames = { "Tree", "River", "Flower", "Rock", "Scenary", "Cave" };
 		try {
-			for (int i = 0; i < 50; i++) {
-				double[] location = createRandLocation();
-				int type = (int) (Math.random() * numTypes);
-				PoiBean bean = new PoiBean(
-						""+i,
-						typeNames[type],
-						"Probably one of the best POIs you have ever seen. This is the description of Poi #"
-								+ i, type, location[0], location[1], location[2]);
-				array.put(bean.toJSONObject());
-				poiBeanList.add(bean);
-			}	
+				scomm.setType(ServerCommunication.CommunicationType.GET);
+				try {
+					
+					List<GeoNode> lst = scomm.execute().get();
+				
+					for(int i=0;i<lst.size();i++) {
+						double[] location = new double[3];
+						location[0] = lst.get(i).latitude;
+						location[1] = lst.get(i).longitude;
+						location[2] = lst.get(i).altitude;
+						PoiBean bean = new PoiBean(
+								""+i,
+								lst.get(i).tagName,
+								lst.get(i).tagDescr,
+								lst.get(i).tagType, location[0], location[1], location[2]);
+						array.put(bean.toJSONObject());
+						poiBeanList.add(bean);
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}	
 		this.architectView.callJavascript("newData(" + array.toString() + ");");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
