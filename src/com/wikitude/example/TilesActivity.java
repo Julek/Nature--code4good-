@@ -52,7 +52,9 @@ public class TilesActivity extends Activity {
 
 
 	protected void load_their_nature() {
-		// TODO Auto-generated method stub
+	    Intent i = new Intent(this, HelloGoogleMaps.class);
+        startActivity(i);
+        onDestroy();
 	}
 
 
