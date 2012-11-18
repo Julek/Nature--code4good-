@@ -6,8 +6,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:gravity="right"
         android:orientation="vertical" >
 
@@ -25,9 +25,9 @@
 
         <ImageView
             android:id="@+id/augumented_reality"
-            android:layout_width="260dp"
-            android:layout_height="162dp"
-            android:src="@drawable/augumented_reality" />
+            android:layout_width="311dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/camera" />
     </LinearLayout>
 
 </RelativeLayout>
