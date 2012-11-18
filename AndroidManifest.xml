@@ -23,21 +23,30 @@
         android:label="@string/app_name" >
         <activity
             android:name="com.wikitude.example.WelcomeActivity"
-            android:label="@string/app_name" android:configChanges="orientation"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
-             android:screenOrientation="portrait">
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name="com.wikitude.example.LoginActivity" ></activity>
-        
+        <activity android:name="com.wikitude.example.LoginActivity" >
+        </activity>
         <activity
-            android:name=".PoiDetailActivity"
+            android:name="com.wikitude.example.PoiDetailActivity"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
+        <activity
+            android:name="com.wikitude.example.TilesActivity"
+            android:label="@string/title_activity_tiles" >
+        </activity>
+        <activity
+            android:name="com.wikitude.example.MainActivity" >
+        </activity>
+        
     </application>
 
 </manifest>
