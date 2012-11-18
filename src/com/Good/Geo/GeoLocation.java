@@ -1,9 +1,13 @@
 package com.Good.Geo;
 
 import java.util.concurrent.locks.*;
-import java.util.concurrent.locks.ReentrantLock;
 
+import android.app.Activity;
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.*;
 import android.os.Bundle;
 
@@ -14,12 +18,16 @@ public class GeoLocation {
 
 	static private Geotag tag = null;
 	static private LocationManager locationManager;
+	static private Sensor magnet;
 	static private LocListener listener = new LocListener();
 	private static Lock lock = new ReentrantLock();
+	static float degrees = 0;
 	
 	public static void setup_GeoLocation() throws NoBearing
 	{
 		locationManager = (LocationManager) MainActivity.curr.getSystemService(Context.LOCATION_SERVICE);
+		magnet = MainActivity.sensors.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+		MainActivity.sensors.registerListener(new MagnetSensor(), magnet, SensorManager.SENSOR_DELAY_NORMAL);
 		if(!locationManager.getProvider(LocationManager.GPS_PROVIDER).supportsBearing())
 			throw new NoBearing();
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, listener);
@@ -38,7 +46,12 @@ public class GeoLocation {
 		return ret;
 	}
 	
-	public static class LocListener implements LocationListener
+	public static double getBearing()
+	{
+		return degrees;
+	}
+	
+	private static class LocListener implements LocationListener
 	{
 
 		public void onLocationChanged(Location location) {
@@ -76,6 +89,19 @@ public class GeoLocation {
 			return;
 		}
 		
+	}
+	
+	private static class MagnetSensor implements SensorEventListener
+	{
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+			
+		}
+
+		public void onSensorChanged(SensorEvent event) {
+			float x = event.values[0];
+			float z = event.values[2];
+			degrees = (float) Math.acos(z/Math.sqrt(x*x + z*z));
+		}
 	}
 	
 	public static class NoClue extends Exception

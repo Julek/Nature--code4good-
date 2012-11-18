@@ -18,6 +18,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -60,6 +61,7 @@ import com.wikitude.architect.ArchitectView;
 public class MainActivity extends Activity implements ArchitectUrlListener, LocationListener{
 	
 	public static Context curr;
+	public static SensorManager sensors;
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
 	private final static float  TEST_LATITUDE =  47.77318f;
@@ -79,6 +81,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
 		curr = this;
+		sensors = (SensorManager) curr.getSystemService(SENSOR_SERVICE);
 		try{
 			GeoLocation.setup_GeoLocation();
 		}
