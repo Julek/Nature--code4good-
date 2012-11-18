@@ -19,11 +19,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.Good.Geo.GeoLocation;
@@ -114,7 +116,9 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
         this.architectView = (ArchitectView) this.findViewById(R.id.architectView);
         //onCreate method for setting the license key for the SDK
         architectView.onCreate(apiKey);
-        
+        LinearLayout ll = (LinearLayout) findViewById(R.id.formLayout);
+    	ll.setVisibility(View.INVISIBLE);
+    	
         //in order to inform the ARchitect framework about the user's location Androids LocationManager is used in this case
         //NOT USED IN THIS EXAMPLE
         //locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -124,14 +128,20 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
             public void onClick(View v) {
             	String btnLabel = (String) tagBtn.getText();
             	if (btnLabel.compareTo("Tag") == 0){
-            		callJavaScript("getInfoBox();");
+         //   		callJavaScript("getInfoBox();");
                 	tagBtn.setText("Submit Tag");
+                	LinearLayout ll = (LinearLayout) findViewById(R.id.formLayout);
+                	ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,300));
+                	ll.setVisibility(View.VISIBLE);
             	} else {
             		double lat = TEST_LATITUDE + ((Math.random() - 0.5) / 500); 
             		double lon = TEST_LONGITUDE + ((Math.random() - 0.5) / 500); 
             		double alt = TEST_ALTITUDE + ((Math.random() - 0.5) * 10);
-            		callJavaScript("submitTag("+lat+","+lon+","+alt+");");
+           // 		callJavaScript("submitTag("+lat+","+lon+","+alt+");");
             		tagBtn.setText("Tag");
+                	LinearLayout ll = (LinearLayout) findViewById(R.id.formLayout);
+                	ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0));
+                	ll.setVisibility(View.INVISIBLE);
             	}
             }
         });
