@@ -9,7 +9,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,18 +20,16 @@ import android.content.res.Configuration;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.Good.Geo.GeoLocation;
 import com.Good.Geo.GeoLocation.NoBearing;
-import com.Good.Geo.Geotag;
 import com.wikitude.architect.ArchitectUrlListener;
 import com.wikitude.architect.ArchitectView;
 
@@ -61,8 +58,10 @@ import com.wikitude.architect.ArchitectView;
 public class MainActivity extends Activity implements ArchitectUrlListener, LocationListener{
 	
 	public static Context curr;
+	
 	public static SensorManager sensors;
 	private static final String TAG = MainActivity.class.getSimpleName();
+
 	
 	private final static float  TEST_LATITUDE =  47.77318f;
 	private final static float  TEST_LONGITUDE = 13.069730f;
@@ -72,8 +71,8 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 	
 	
 	private ArchitectView architectView;
-	private LocationManager locManager;
-	private Location loc;
+//	private LocationManager locManager;
+//	private Location loc;
 	private List<PoiBean> poiBeanList;
 	
     /** Called when the activity is first created. */
@@ -126,6 +125,19 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
         //NOT USED IN THIS EXAMPLE
         //locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         //locManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, this);
+        final Button tagBtn = (Button) findViewById(R.id.tagBtn);
+        tagBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	String btnLabel = (String) tagBtn.getText();
+            	if (btnLabel.compareTo("Tag") == 0){
+            		callJavaScript("getInfoBox();");
+                	tagBtn.setText("Submit Tag");
+            	} else {
+            		callJavaScript("submitTag();");
+            		tagBtn.setText("Tag");
+            	}
+            }
+        });
      }
     
 	@Override
@@ -240,14 +252,17 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 
 		JSONArray array = new JSONArray();
 		poiBeanList = new ArrayList<PoiBean>();
+		final int numTypes = 6;
+		String[] typeNames = { "Tree", "River", "Flower", "Rock", "Scenary", "Cave" };
 		try {
 			for (int i = 0; i < 50; i++) {
 				double[] location = createRandLocation();
+				int type = (int) (Math.random() * numTypes);
 				PoiBean bean = new PoiBean(
 						""+i,
-						"POI #" + i,
+						typeNames[type],
 						"Probably one of the best POIs you have ever seen. This is the description of Poi #"
-								+ i, (int) (Math.random() * 6), location[0], location[1], location[2]);
+								+ i, type, location[0], location[1], location[2]);
 				array.put(bean.toJSONObject());
 				poiBeanList.add(bean);
 			}	
@@ -289,6 +304,10 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void callJavaScript(String function){
+		this.architectView.callJavascript(function);
 	}
 	
 	
