@@ -54,11 +54,11 @@
     
 </head>
     
-    <body>
+    <body id="body">
         <script>
             // Tutorial code using the ARchitect Javascript library
             
-            var files = ["tree.png", "river.png", "flower.png", "rocks.png", "scenary.png", "caves.png"];
+            var files = ["tree.png", "river.png", "flower.png", "rock.png", "scenary.png", "caves.png"];
             
             var Images = new Array();
             
@@ -195,8 +195,6 @@
             }
             
             function getInfoBox(){
-           		var btnText = document.getElementById("tagBtn").innerHTML;
-            	if (btnText == "Tag"){
 	            	var div = document.createElement('div');
 	            	div.id = "infobox";
 					div.innerHTML = "<table style='font-size:20px;font-weight:bold'><tr style='height:30px'><td>Type</td><td><select>  <option value='flower'>Flower</option><option value='tree'>Tree</option>" +
@@ -210,20 +208,19 @@
 					div.style.opacity = 0.6;
 					// better to use CSS though - just set class
 					//div.setAttribute('class', 'myclass'); // and make sure myclass has some styles in css
-					document.getElementById("tagBtn").parentNode.appendChild(div);
-					document.getElementById("tagBtn").innerHTML = "Finish Tag";
-				} else {
-					var parent = document.getElementById("tagBtn").parentNode;
-					parent.removeChild(document.getElementById("infobox"));
-					document.getElementById("tagBtn").innerHTML = "Tag";
-				}
+					var body = document.getElementById("body");
+					if(body.firstChild) body.insertBefore(div,body.firstChild);
+					else body.appendChild(div);				
             }
             
+            function submitTag(){
+            	var parent = document.getElementById("infobox").parentNode;
+				parent.removeChild(document.getElementById("infobox"));
+            }
             </script>
         
         
 		<!-- Status element at the top of the HUD -->
-		<button id ="tagBtn" style="width:100%;height:50px;font-size:20px;font-weight:bold" onClick="getInfoBox()">Tag</button>
         <!-- <div id="statusElement" class="status"></div> -->
         <br/>
         <br/>

@@ -26,7 +26,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.Good.Geo.GeoLocation;
@@ -123,6 +125,19 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
         //NOT USED IN THIS EXAMPLE
         //locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         //locManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, this);
+        final Button tagBtn = (Button) findViewById(R.id.tagBtn);
+        tagBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	String btnLabel = (String) tagBtn.getText();
+            	if (btnLabel.compareTo("Tag") == 0){
+            		callJavaScript("getInfoBox();");
+                	tagBtn.setText("Submit Tag");
+            	} else {
+            		callJavaScript("submitTag();");
+            		tagBtn.setText("Tag");
+            	}
+            }
+        });
      }
     
 	@Override
@@ -286,6 +301,10 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void callJavaScript(String function){
+		this.architectView.callJavascript(function);
 	}
 	
 	
