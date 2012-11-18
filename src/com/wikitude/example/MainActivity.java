@@ -151,7 +151,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
             		GeoNode node = new GeoNode(name,description,type,lon,lat,alt);
             		scomm = new ServerCommunication(node, ServerCommunication.CommunicationType.POST);
             		scomm.execute();
-            		Toast.makeText(getApplicationContext(), node.toString(), Toast.LENGTH_SHORT).show();
+            		Toast.makeText(getApplicationContext(), "Tag submitted successfully", Toast.LENGTH_LONG).show();
             		tagBtn.setText("Tag");
                 	LinearLayout ll = (LinearLayout) findViewById(R.id.formLayout);
                 	ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0));
