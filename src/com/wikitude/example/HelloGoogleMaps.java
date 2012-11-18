@@ -1,10 +1,13 @@
 package com.wikitude.example;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import com.Good.GeoNode;
+import com.Good.ServerCommunication;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -25,6 +28,18 @@ public class HelloGoogleMaps extends MapActivity{
 	    setContentView(R.layout.activity_maps);
 	    MapView mapView = (MapView) findViewById(R.id.mapview);
 	    mapView.setBuiltInZoomControls(true);
+	    
+	    GeoNode node = new GeoNode("","","",0,0,0);
+	    ServerCommunication scomm = new ServerCommunication(node, ServerCommunication.CommunicationType.POST);
+	    try {
+			List<GeoNode> geoList = scomm.execute().get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    
 	    List<Overlay> mapOverlays = mapView.getOverlays();
 	    Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
