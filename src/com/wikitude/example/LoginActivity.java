@@ -62,34 +62,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	    
-		
 		setContentView(R.layout.activity_login);
-		
-	    /*TextView label = new TextView(this);  
-	    label.setText(R.string.my_text_label);  
-	    label.setTextSize(20);  
-	    label.setGravity(Gravity.CENTER_HORIZONTAL);
-	    label.setId(101);
-	    ImageView pic = new ImageView(this); 
-	    pic.setImageResource(R.drawable.matterhorn);
-	    //pic.setImageResource(R.drawable.matterhorn);  
-	    pic.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));  
-	    pic.setAdjustViewBounds(true);  
-	    pic.setScaleType(ScaleType.FIT_XY);  
-	    pic.setMaxHeight(250);  
-	    pic.setMaxWidth(250);  
-	    pic.setId(102);
-	    LinearLayout ll = new LinearLayout(this);  
-	    ll.setOrientation(LinearLayout.VERTICAL);  
-	    ll.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));  
-	    ll.setGravity(Gravity.CENTER);  
-	  //  ll.addView(label);  
-	    ll.addView(pic);  
-	    setContentView(ll); 
-		*/
-	    
-	    
-	    
 		
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
