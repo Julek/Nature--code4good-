@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.http.NameValuePair;
@@ -16,19 +18,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
-
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -66,7 +67,10 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 	
 	
 	public static Context curr;
-//	private static final String TAG = MainActivity.class.getSimpleName();
+	
+	public static SensorManager sensors;
+	private static final String TAG = MainActivity.class.getSimpleName();
+
 	
 	private final static float  TEST_LATITUDE =  47.77318f;
 	private final static float  TEST_LONGITUDE = 13.069730f;
@@ -82,6 +86,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 	
 	//server communication
 	private static ServerCommunication scomm;
+	Timer t;
 	
     /** Called when the activity is first created. */
     @Override
@@ -89,6 +94,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
     	
     	super.onCreate(savedInstanceState);
 		curr = this;
+		sensors = (SensorManager) curr.getSystemService(SENSOR_SERVICE);
 		try{
 			GeoLocation.setup_GeoLocation();
 		}
@@ -190,12 +196,8 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
     	//register this activity as handler of "architectsdk://" urls
     	this.architectView.registerUrlListener(this);
     	
-    	try {
-			loadSampleWorld();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	t = new Timer();
+		t.schedule(new LoadSample(),0,5000);
 
     }
     
@@ -278,9 +280,15 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 	 * and converts them into a jsonstring that can be sent to the framework
 	 * @throws IOException exception thrown while loading an Architect world
 	 */
-	private void loadSampleWorld() throws IOException {
-		this.architectView.load("tutorial1.html");
+	private class LoadSample extends TimerTask{ 
+	public void run() {
+		try {
+			MainActivity.this.architectView.load("tutorial1.html");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
+		MainActivity.this.architectView.callJavascript("remData();");
 		JSONArray array = new JSONArray();
 		poiBeanList = new ArrayList<PoiBean>();
 		try {
@@ -307,11 +315,12 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 				} catch (ExecutionException e) {
 					e.printStackTrace();
 				}	
-		this.architectView.callJavascript("newData(" + array.toString() + ");");
+		MainActivity.this.architectView.callJavascript("newData(" + array.toString() + ");");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+	}
 	}
 
 	/**

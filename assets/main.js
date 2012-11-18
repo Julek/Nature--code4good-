@@ -67,6 +67,14 @@ $(function(){
         };
     }
 
+    windows.remData = function(jsonData) {
+    	var all = document.getElementsByTagName("*");
+
+    	while(all.length>1) {
+    	     document.removeChild(0);
+    	     var all = document.getElementsByTagName("*");
+    	}
+    }
     //function called from the native app fia callJavascript method
     //receives json-data as string and processes the contained information
     window.newData = function(jsonData) {
