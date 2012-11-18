@@ -22,7 +22,7 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name" >
         <activity
-            android:name="com.wikitude.example.MainActivity"
+            android:name="com.wikitude.example.WelcomeActivity"
             android:label="@string/app_name" android:configChanges="orientation"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
              android:screenOrientation="portrait">
@@ -31,6 +31,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity android:name="com.wikitude.example.LoginActivity" ></activity>
         
         <activity
             android:name=".PoiDetailActivity"
