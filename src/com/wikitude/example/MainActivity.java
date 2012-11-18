@@ -28,6 +28,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.Good.GeoNode;
 import com.Good.Geo.GeoLocation;
 import com.Good.Geo.GeoLocation.NoBearing;
 import com.wikitude.architect.ArchitectUrlListener;
@@ -138,6 +139,8 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
             		double lon = TEST_LONGITUDE + ((Math.random() - 0.5) / 500); 
             		double alt = TEST_ALTITUDE + ((Math.random() - 0.5) * 10);
            // 		callJavaScript("submitTag("+lat+","+lon+","+alt+");");
+            		//String type = (View) findViewById(R.id.SpinnerType);
+            		//GeoNode node = new GeoNode(findViewById(R.id.PlantName), findViewById(R.id.PlantDescription), , longitude, latitude, altitude)
             		tagBtn.setText("Tag");
                 	LinearLayout ll = (LinearLayout) findViewById(R.id.formLayout);
                 	ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0));
