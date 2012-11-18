@@ -9,29 +9,24 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+
 import com.Good.Geo.GeoLocation;
 import com.Good.Geo.GeoLocation.NoBearing;
-import com.Good.Geo.Geotag;
 import com.wikitude.architect.ArchitectUrlListener;
 import com.wikitude.architect.ArchitectView;
 
@@ -59,6 +54,7 @@ import com.wikitude.architect.ArchitectView;
  */
 public class MainActivity extends Activity implements ArchitectUrlListener, LocationListener{
 	
+	
 	public static Context curr;
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
@@ -77,6 +73,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	
     	super.onCreate(savedInstanceState);
 		curr = this;
 		try{
@@ -103,6 +100,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
     	
         //let the application be fullscreen
         this.getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
+    	
         
         //check if the device fulfills the SDK'S minimum requirements
         if(!ArchitectView.isDeviceSupported(this))
@@ -123,6 +121,8 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
         //NOT USED IN THIS EXAMPLE
         //locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         //locManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, this);
+        
+    	
      }
     
 	@Override
