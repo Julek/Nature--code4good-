@@ -1,7 +1,7 @@
 // Tutorial code using the ARchitect Javascript library
 $(function(){
     var files = ["tree.png", "river.png", "flower.png", "rock.png", "scenary.png", "caves.png"];
-    var strTypes = ["tree", "river", "flower", "rock", "scenary", "cave"];
+    var strTypes = ["Tree", "River", "Flower", "Rock", "Scenary", "Cave"];
 
     var Images = [];
 

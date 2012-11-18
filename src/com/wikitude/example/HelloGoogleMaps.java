@@ -28,11 +28,12 @@ public class HelloGoogleMaps extends MapActivity{
 	    setContentView(R.layout.activity_maps);
 	    MapView mapView = (MapView) findViewById(R.id.mapview);
 	    mapView.setBuiltInZoomControls(true);
-	  /*  
+	    
 	    GeoNode node = new GeoNode("","","",0,0,0);
 	    ServerCommunication scomm = new ServerCommunication(node, ServerCommunication.CommunicationType.POST);
+	    List<GeoNode> geoList = null;
 	    try {
-			List<GeoNode> geoList = scomm.execute().get();
+			geoList = scomm.execute().get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,16 +43,38 @@ public class HelloGoogleMaps extends MapActivity{
 		}
 	    
 	    List<Overlay> mapOverlays = mapView.getOverlays();
-	    Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
-	    HelloItemizedOverlay itemizedoverlay = new HelloItemizedOverlay(drawable, this);
-	    
-	    GeoPoint point = new GeoPoint(19240000,-99120000);
-	    OverlayItem overlayitem = new OverlayItem(point, "Hola, Mundo!", "I'm in Mexico City!");
-	    
-	    itemizedoverlay.addOverlay(overlayitem);
-	    mapOverlays.add(itemizedoverlay);*/
+	    HelloItemizedOverlay itemizedoverlay = null;
+	    for (GeoNode gNode : geoList){
+	    	String type = gNode.tagType;
+	    	Drawable drawable = this.getResources().getDrawable(getDrawable(type));
+		    itemizedoverlay = new HelloItemizedOverlay(drawable, this);
+		    
+		    GeoPoint point = new GeoPoint((int) (gNode.latitude * Math.pow(10, 6)), (int) (gNode.longitude * Math.pow(10, 6)));
+		    OverlayItem overlayitem = new OverlayItem(point, gNode.tagName, gNode.tagDescr);
+		    
+		    itemizedoverlay.addOverlay(overlayitem);
+		
+	    }
+	    mapOverlays.add(itemizedoverlay);
 	}
 	
+
+	private int getDrawable(String type) {
+		if (type.toLowerCase().compareTo("river") == 0){
+			return R.drawable.river;
+		} else if (type.toLowerCase().compareTo("caves") == 0) {
+			return R.drawable.cave;
+		} else if (type.toLowerCase().compareTo("tree") == 0) {
+			return R.drawable.tree;
+		} else if (type.toLowerCase().compareTo("rock") == 0) {
+			return R.drawable.rock;
+		} else if (type.toLowerCase().compareTo("scenary") == 0) {
+			return R.drawable.scenary;
+		} else {
+			return R.drawable.flower;
+		}
+		
+	}
 
 	protected void onDestroy(){
 		super.onDestroy();
