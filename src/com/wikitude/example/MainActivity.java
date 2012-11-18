@@ -237,14 +237,17 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 
 		JSONArray array = new JSONArray();
 		poiBeanList = new ArrayList<PoiBean>();
+		final int numTypes = 6;
+		String[] typeNames = { "Tree", "River", "Flower", "Rock", "Scenary", "Cave" };
 		try {
 			for (int i = 0; i < 50; i++) {
 				double[] location = createRandLocation();
+				int type = (int) (Math.random() * numTypes);
 				PoiBean bean = new PoiBean(
 						""+i,
-						"POI #" + i,
+						typeNames[type],
 						"Probably one of the best POIs you have ever seen. This is the description of Poi #"
-								+ i, (int) (Math.random() * 6), location[0], location[1], location[2]);
+								+ i, type, location[0], location[1], location[2]);
 				array.put(bean.toJSONObject());
 				poiBeanList.add(bean);
 			}	
