@@ -12,7 +12,7 @@ public class PoiBean {
 	private String id;
 	private String name;
 	private String description;
-	private int type;
+	private String type;
 	
 	private Point point;
 	
@@ -39,7 +39,7 @@ public class PoiBean {
 		}
 	}
 	
-	public PoiBean(String _id, String _name, String _desc, int _type, double _lat, double _lon, double _alt)
+	public PoiBean(String _id, String _name, String _desc, String _type, double _lat, double _lon, double _alt)
 	{
 		this.id = _id;
 		this.name = _name;
@@ -67,10 +67,10 @@ public class PoiBean {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getType() {
+	public String getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	
