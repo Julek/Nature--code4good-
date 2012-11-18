@@ -19,6 +19,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
@@ -126,7 +127,10 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
             		callJavaScript("getInfoBox();");
                 	tagBtn.setText("Submit Tag");
             	} else {
-            		callJavaScript("submitTag();");
+            		double lat = TEST_LATITUDE + ((Math.random() - 0.5) / 500); 
+            		double lon = TEST_LONGITUDE + ((Math.random() - 0.5) / 500); 
+            		double alt = TEST_ALTITUDE + ((Math.random() - 0.5) * 10);
+            		callJavaScript("submitTag("+lat+","+lon+","+alt+");");
             		tagBtn.setText("Tag");
             	}
             }
