@@ -9,23 +9,17 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -33,7 +27,6 @@ import android.widget.Toast;
 
 import com.Good.Geo.GeoLocation;
 import com.Good.Geo.GeoLocation.NoBearing;
-import com.Good.Geo.Geotag;
 import com.wikitude.architect.ArchitectUrlListener;
 import com.wikitude.architect.ArchitectView;
 
@@ -62,7 +55,7 @@ import com.wikitude.architect.ArchitectView;
 public class MainActivity extends Activity implements ArchitectUrlListener, LocationListener{
 	
 	public static Context curr;
-	private static final String TAG = MainActivity.class.getSimpleName();
+//	private static final String TAG = MainActivity.class.getSimpleName();
 	
 	private final static float  TEST_LATITUDE =  47.77318f;
 	private final static float  TEST_LONGITUDE = 13.069730f;
@@ -72,8 +65,8 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 	
 	
 	private ArchitectView architectView;
-	private LocationManager locManager;
-	private Location loc;
+//	private LocationManager locManager;
+//	private Location loc;
 	private List<PoiBean> poiBeanList;
 	
     /** Called when the activity is first created. */
