@@ -43,7 +43,7 @@
             width: 90%;
             height: 5%;
             left: 5%;
-            top: 1%;
+            top: 5%;
         }
         }	
         </style>
@@ -129,7 +129,7 @@
             //receives json-data as string and processes the contained information
             function newData(jsonData){
                 jsonObject = jsonData;
-                document.getElementById("statusElement").innerHTML='Loading JSON objects';
+                //document.getElementById("statusElement").innerHTML='Loading JSON objects';
                 
                 
                 for(var i = 0; i < jsonObject.length; i++)
@@ -173,7 +173,7 @@
                     jsonObject[i].poiObj = new AR.GeoObject(geoLoc, {drawables: {cam: poidrawables}});
                 }
                 
-                document.getElementById("statusElement").innerHTML='JSON objects loaded';	
+                //document.getElementById("statusElement").innerHTML='JSON objects loaded';	
                 
                 
             }
@@ -181,7 +181,7 @@
             // Called if loading of the image fails.
             function errorLoadingImage() {
                 // set error message on HUD
-                document.getElementById("statusElement").innerHTML = "Unable to load image!";
+                //document.getElementById("statusElement").innerHTML = "Unable to load image!";
             }
             
             
@@ -204,11 +204,37 @@
                 }
             }
             
+            function getInfoBox(){
+           		var btnText = document.getElementById("tagBtn").innerHTML;
+            	if (btnText == "Tag"){
+	            	var div = document.createElement('div');
+	            	div.id = "infobox";
+					div.innerHTML = "<table style='font-size:20px;font-weight:bold'><tr style='height:30px'><td>Type</td><td><select>  <option value='flower'>Flower</option><option value='tree'>Tree</option>" +
+	  								"<option value='river'>River</option>" +
+	  								"<option value='fish'>Fish</option>" +
+									"</select></td></tr>"+
+									"<tr style='height:30px'><td>Name</td><td><input type='text'></td></tr>"+
+									"<tr style='height:30px'><td>Description</td><td><input type='text'></td></tr></table>";
+					// set style
+					div.style.backgroundColor = "#FFFFFF";
+					div.style.opacity = 0.6;
+					// better to use CSS though - just set class
+					//div.setAttribute('class', 'myclass'); // and make sure myclass has some styles in css
+					document.getElementById("tagBtn").parentNode.appendChild(div);
+					document.getElementById("tagBtn").innerHTML = "Finish Tag";
+				} else {
+					var parent = document.getElementById("tagBtn").parentNode;
+					parent.removeChild(document.getElementById("infobox"));
+					document.getElementById("tagBtn").innerHTML = "Tag";
+				}
+            }
+            
             </script>
         
         
 		<!-- Status element at the top of the HUD -->
-        <div id="statusElement" class="status"></div>
+		<button id ="tagBtn" style="width:100%;height:50px;font-size:20px;font-weight:bold" onClick="getInfoBox()">Tag</button>
+        <!-- <div id="statusElement" class="status"></div> -->
         <br/>
         <br/>
         <br/>
