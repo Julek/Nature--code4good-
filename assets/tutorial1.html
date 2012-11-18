@@ -58,10 +58,16 @@
         <script>
             // Tutorial code using the ARchitect Javascript library
             
+            var files = ["tree.png", "river.png", "flower.png", "rocks.png", "scenary.png", "caves.png"];
+            
+            var Images = new Array();
+            
             // Create new images, which will be loaded right away
-            firstImage = new AR.ImageResource("marker1.png", {onError: errorLoadingImage});
-            secondImage = new AR.ImageResource("marker2.png", {onError: errorLoadingImage});
-            thirdImage = new AR.ImageResource("marker3.png", {onError: errorLoadingImage});
+            for(i = 0; i<6; i++)
+            {
+            	Images[i] = new AR.ImageResource(files[i], {onError: errorLoadingImage});
+            	alert("bla" + (i + 1));
+            }
             
             
             // current selected object
@@ -143,20 +149,7 @@
                     
                     jsonObject[i].arLabel = label;
                     
-                    var poiImage;
-                    if(jsonObject[i].type == 1) 
-                    {
-                        poiImage = firstImage;
-                    }
-                    else if(jsonObject[i].type == 2)
-                    {
-                        poiImage = secondImage;
-                    }
-                    else
-                    {
-                        poiImage = thirdImage;
-                    }
-                    
+                    poiImage = Images[jsonObject[i].type];
                     
                     var img = new AR.ImageDrawable(poiImage, 2.0,
                                                    {triggers: { 
