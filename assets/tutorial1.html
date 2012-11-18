@@ -1,71 +1,72 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- saved from url=(0061)http://www.wikitude.com/doc/architect_tutorial/tutorial5.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <title>My ARchitect World</title>
-    
-    <!-- CSS Styles -->
-    <style type="text/css">
-        
-        * {
-            margin: 0;
-        }
-        html, body {
-            height: 100%;
-        }
-        
-        #footer{
-            height: 4em;
-            background-color: rgba(255,255,255,0.5);
-            padding: 5px 10px;
-            display:none;
-            position:absolute;
-            bottom: 0px;
-            left: 0px;
-            right:0px;
-            moz-border-radius: 10px;
-            -webkit-border-radius: 10px;
-            -khtml-border-radius: 10px;
-            border-radius: 10px;
-            
-        }
-        
-        /* CSS Style for status message at the top of the HUD */
-        .status {
-            border-radius: 2em;
-            border: solid 2px #6d6d6d;
-            background-color: rgba(256, 193, 0, 0.7);
-            color: black;
-            text-align: center;
-            font-weight: bold;
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-            position:absolute;
-            width: 90%;
-            height: 5%;
-            left: 5%;
-            top: 5%;
-        }
-        }
+        <title>My ARchitect World</title>
+
+        <!-- CSS Styles -->
+        <style type="text/css">
+
+            * {
+                margin: 0;
+            }
+
+            html, body {
+                height: 100%;
+            }
+
+            #footer{
+                height: 4em;
+                background-color: rgba(255,255,255,0.5);
+                padding: 5px 10px;
+                display:none;
+                position:absolute;
+                bottom: 0px;
+                left: 0px;
+                right:0px;
+                moz-border-radius: 10px;
+                -webkit-border-radius: 10px;
+                -khtml-border-radius: 10px;
+                border-radius: 10px;
+            }
+
+            /* CSS Style for status message at the top of the HUD */
+            .status {
+                border-radius: 2em;
+                border: solid 2px #6d6d6d;
+                background-color: rgba(256, 193, 0, 0.7);
+                color: black;
+                text-align: center;
+                font-weight: bold;
+
+                position:absolute;
+                width: 90%;
+                height: 5%;
+                left: 5%;
+                top: 5%;
+            }
         </style>
 
-    <!-- Include the ARchitect library -->
-    <script src="architect://architect.js"></script>
+        <!-- Include the ARchitect library -->
+        <script src="architect://architect.js"></script>
 
-
-</head>
+    </head>
 
     <body id="body">
         <script type="text/javascript" src="main.js"></script>
 
-
 		<!-- Status element at the top of the HUD -->
         <!-- <div id="statusElement" class="status"></div> -->
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
+
         <div id="footer">
             <h3><span id="poiName"></span></h3>
             Description: <span id="poiDesc"></span><br/>
             <p style="text-align:center;">click for more...</p>
         </div>
-    </body></html>
+    </body>
+</html>

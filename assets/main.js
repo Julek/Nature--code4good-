@@ -2,11 +2,12 @@
 
 var files = ["tree.png", "river.png", "flower.png", "rock.png", "scenary.png", "caves.png"];
 
-var Images = new Array();
+var Images = [];
 
 // Create new images, which will be loaded right away
-for(i = 0; i<6; i++)
-    Images[i] = new AR.ImageResource(files[i], {onError: errorLoadingImage});
+for (i = 0; i<6; i++) {
+    Images[i] = new AR.ImageResource(files[i], { onError: errorLoadingImage });
+}
 
 
 // current selected object
@@ -19,28 +20,23 @@ var jsonObject;
 
 //function that gets called when the displayed poi bubble is clicked
 //sends the id of the selected poi to the native app
-function generateOnPoiBubbleClickFunc(id)
-{
-    return function()
-    {
+function generateOnPoiBubbleClickFunc(id) {
+    return function() {
         document.location = "architectsdk://opendetailpage?id="+id;
-    }
+    };
 }
 
 
 // creates a property animation
-function createOnClickAnimation(imageDrawable)
-{
+function createOnClickAnimation(imageDrawable) {
     var anim = new AR.PropertyAnimation( imageDrawable, 'scaling', 1.0, 1.2, 750, new AR.EasingCurve(AR.CONST.EASING_CURVE_TYPE.EASE_OUT_ELASTIC, {amplitude : 2.0}) );
     return anim;
 }
 
 
 // creates a function for assigning to label's and imageDrawable's onClickTrigger
-function createClickTrigger(id)
-{
-    return function()
-    {
+function createClickTrigger(id) {
+    return function() {
         // hide the bubble
         document.getElementById("footer").style.display = 'block';
         document.getElementById("poiName").innerHTML=jsonObject[id].name;
@@ -48,7 +44,7 @@ function createClickTrigger(id)
         document.getElementById("footer").onclick= generateOnPoiBubbleClickFunc(id);
 
         // reset the previous selected poi
-        if(selectedObject != null)
+        if(selectedObject !== null)
         {
             // reset the property animation
             selectedObject.animation.stop();
@@ -67,19 +63,17 @@ function createClickTrigger(id)
         selectedObject.animation.start();
 
         return true;
-    }
+    };
 }
 
 //function called from the native app fia callJavascript method
 //receives json-data as string and processes the contained information
-function newData(jsonData){
+function newData(jsonData) {
     jsonObject = jsonData;
     //document.getElementById("statusElement").innerHTML='Loading JSON objects';
 
-
-    for(var i = 0; i < jsonObject.length; i++)
-    {
-        var poidrawables = new Array();
+    for (var i = 0; i < jsonObject.length; i++) {
+        var poidrawables = [];
         var label = new AR.Label(jsonObject[i].name,1.0, {offsetY : -1.5,
                                  triggers: {
                                  onClick:
@@ -106,8 +100,6 @@ function newData(jsonData){
     }
 
     //document.getElementById("statusElement").innerHTML='JSON objects loaded';
-
-
 }
 
 // Called if loading of the image fails.
@@ -118,14 +110,12 @@ function errorLoadingImage() {
 
 
 // hide bubble and reset the selected poi if nothing was hit by a display click
-AR.context.onScreenClick = function()
-{
+AR.context.onScreenClick = function() {
     // hide the bubble
     document.getElementById("footer").style.display = 'none';
 
     // and reset the current selected poi
-    if(selectedObject != null)
-    {
+    if(selectedObject !== null) {
         // reset the property animation
         selectedObject.animation.stop();
 
@@ -134,9 +124,9 @@ AR.context.onScreenClick = function()
         selectedObject.poiObj.renderingOrder = 0;
         selectedObject = null;
     }
-}
+};
 
-function getInfoBox(){
+function getInfoBox() {
         var div = document.createElement('div');
         div.id = "infobox";
         div.innerHTML = "<table style='font-size:20px;font-weight:bold'><tr style='height:30px'><td>Type</td><td><select>  <option value='flower'>Flower</option><option value='tree'>Tree</option>" +
@@ -155,7 +145,7 @@ function getInfoBox(){
         else body.appendChild(div);
 }
 
-function submitTag(){
+function submitTag() {
     var parent = document.getElementById("infobox").parentNode;
     parent.removeChild(document.getElementById("infobox"));
 }
