@@ -4,22 +4,57 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-<RelativeLayout android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
-    <Button
-        android:id="@+id/backBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Back" />
-    <Button
-        android:id="@+id/tagBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tag"
-        android:layout_weight="2" 
-        android:layout_toRightOf="@+id/backBtn"/>
-</RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Back" />
+
+        <Button
+            android:id="@+id/tagBtn"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/backBtn"
+            android:text="Tag" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/formLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:orientation="vertical" 
+        android:visibility="invisible">
+
+        <Spinner
+            android:id="@+id/SpinnerFeedbackType"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/types"
+            android:prompt="@string/selecttype" >
+        </Spinner>
+
+        <EditText
+            android:id="@+id/PlantName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/plantname"
+            android:inputType="textPersonName" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/PlantDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/plantdescription"
+            android:inputType="textPersonName" >
+        </EditText>
+    </LinearLayout>
+
     <com.wikitude.architect.ArchitectView
         android:id="@+id/architectView"
         android:layout_width="fill_parent"

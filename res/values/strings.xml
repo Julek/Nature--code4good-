@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">frontGUI</string>
+    <string name="app_name">Good</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_welcome">WelcomeActivity</string>
-    <string name="title_activity_tiles">TilesActivity</string>
+    
+    <string name="plantname">Name</string>
+    <string name="plantdescription">Description...</string>
 
+    <string name="type1">Flower</string>
+	<string name="type2">River</string>
+	<string name="type3">Tree</string>
+	<string name="type4">Rock</string>
+	
+	<string name="selecttype">Please select type</string>
 </resources>
