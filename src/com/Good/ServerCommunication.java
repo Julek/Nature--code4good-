@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class ServerCommunication extends  AsyncTask<List<GeoNode>, List<GeoNode>, List<GeoNode>>{
 	
@@ -33,6 +34,10 @@ public class ServerCommunication extends  AsyncTask<List<GeoNode>, List<GeoNode>
 
 	private GeoNode current;
 	private CommunicationType type;
+	
+	public void setType(CommunicationType type) {
+		this.type = type;
+	}
 	
 	public ServerCommunication(GeoNode n, CommunicationType type) {
 		this.current = n;
@@ -45,6 +50,7 @@ public class ServerCommunication extends  AsyncTask<List<GeoNode>, List<GeoNode>
 			postData(current);
 		else {
 			try {
+				Log.d("mama","ma-ta");
 				return getLocations(current.longitude,current.latitude);
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -88,7 +94,7 @@ public class ServerCommunication extends  AsyncTask<List<GeoNode>, List<GeoNode>
 				JSONObject o = arr.getJSONObject(i);
 				n.tagType = o.getString("type");
 				n.tagName = o.getString("name");
-				n.tagDescr = o.getString("descr");
+				n.tagDescr = o.getString("description");
 				n.longitude = o.getDouble("long");
 				n.latitude = o.getDouble("lat");
 				n.altitude = o.getDouble("alt");
@@ -119,7 +125,7 @@ public class ServerCommunication extends  AsyncTask<List<GeoNode>, List<GeoNode>
 		    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 		    nameValuePairs.add(new BasicNameValuePair("type", n.tagType));
 		    nameValuePairs.add(new BasicNameValuePair("name", n.tagName));
-		    nameValuePairs.add(new BasicNameValuePair("descr", n.tagDescr));
+		    nameValuePairs.add(new BasicNameValuePair("description", n.tagDescr));
 		    nameValuePairs.add(new BasicNameValuePair("long", String.valueOf(n.longitude)));
 		    nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(n.latitude)));
 		    nameValuePairs.add(new BasicNameValuePair("alt", String.valueOf(n.altitude)));

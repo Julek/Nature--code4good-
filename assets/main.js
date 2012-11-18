@@ -1,6 +1,7 @@
 // Tutorial code using the ARchitect Javascript library
 $(function(){
     var files = ["tree.png", "river.png", "flower.png", "rock.png", "scenary.png", "caves.png"];
+    var strTypes = ["tree", "river", "flower", "rock", "scenary", "cave"];
 
     var Images = [];
 
@@ -82,7 +83,17 @@ $(function(){
 
             jsonObject[i].arLabel = label;
 
-            poiImage = Images[jsonObject[i].type];
+			var pos = 0;
+			for(var j=0;j<strTypes.length;j++)
+			{
+				if(jsonObject[i].type == strTypes[j])
+				{
+				pos = j;
+				break;
+				}
+				
+			}
+            poiImage = Images[pos];
 
             var img = new AR.ImageDrawable(poiImage, 2.0,
                                            {triggers: {
