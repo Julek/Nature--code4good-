@@ -9,6 +9,18 @@ public class GeoNode {
 	public String tagName;
 	public String tagDescr;
 	
+	public GeoNode() {
+		//
+	}
+	
+	public GeoNode(String tagName, String tagDescr, double longitude, double latitude, double altitude) {
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.altitude = altitude;
+		this.tagDescr = tagDescr;
+		this.tagName = tagName;
+	}
+	
 	
 	public double getDistance(double lon,double lat) {
 		double lat2 = lat;

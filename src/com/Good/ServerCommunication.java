@@ -22,7 +22,38 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ServerCommunication {
+import android.os.AsyncTask;
+
+public class ServerCommunication extends  AsyncTask<List<GeoNode>, List<GeoNode>, List<GeoNode>>{
+	
+	public static enum CommunicationType {
+		POST,
+		GET
+	}
+
+	private GeoNode current;
+	private CommunicationType type;
+	
+	public ServerCommunication(GeoNode n, CommunicationType type) {
+		this.current = n;
+		this.type = type;
+	}
+
+	@Override
+	protected List<GeoNode> doInBackground(List<GeoNode>... param) {
+		if(type == CommunicationType.POST) 
+			postData(current);
+		else {
+			try {
+				return getLocations(current.longitude,current.latitude);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	
 	private String getHtml() throws ClientProtocolException, IOException
 	{
 	    HttpClient httpClient = new DefaultHttpClient();
@@ -45,10 +76,10 @@ public class ServerCommunication {
 	    return result;
 	}
 	
-	public List<GeoNode> getLocations(double longitude, double latitude) throws JSONException {
+	private List<GeoNode> getLocations(double longitude, double latitude) throws JSONException {
 		List<GeoNode> lst = new LinkedList<GeoNode>();
 		try {
-			String htmlpage = "mock:" + getHtml();
+			String htmlpage = "{mock:" + getHtml()+"}";
 			JSONObject obj = new JSONObject(htmlpage);
 			JSONArray arr = obj.getJSONArray("mock");
 			for(int i = 0;i<arr.length();i++)
@@ -63,7 +94,7 @@ public class ServerCommunication {
 				
 				int pos = 0;
 				for(int j = 0;j<lst.size();j++) {
-					if(n.getDistance(longitude, latitude)>lst.get(j).getDistance(longitude, latitude))
+					if(n.getDistance(longitude, latitude)<lst.get(j).getDistance(longitude, latitude))
 						break;
 					pos++;
 				}
@@ -78,15 +109,16 @@ public class ServerCommunication {
 	}
 	
 	
-	public void postData(GeoNode n) {
+	private void postData(GeoNode n) {
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost("http://www.yoursite.com/script.php");
+		HttpPost httppost = new HttpPost("http://code4good.nh2.me/put");
 
 		try {
 		    // Add your data
 		    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+		    nameValuePairs.add(new BasicNameValuePair("id", java.util.UUID.randomUUID().toString()));
 		    nameValuePairs.add(new BasicNameValuePair("name", n.tagName));
-		    nameValuePairs.add(new BasicNameValuePair("decr", n.tagDescr));
+		    nameValuePairs.add(new BasicNameValuePair("descr", n.tagDescr));
 		    nameValuePairs.add(new BasicNameValuePair("long", String.valueOf(n.longitude)));
 		    nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(n.latitude)));
 		    nameValuePairs.add(new BasicNameValuePair("alt", String.valueOf(n.altitude)));
