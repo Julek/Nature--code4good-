@@ -244,7 +244,7 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
 						""+i,
 						"POI #" + i,
 						"Probably one of the best POIs you have ever seen. This is the description of Poi #"
-								+ i, (int) (Math.random() * 3), location[0], location[1], location[2]);
+								+ i, (int) (Math.random() * 6), location[0], location[1], location[2]);
 				array.put(bean.toJSONObject());
 				poiBeanList.add(bean);
 			}	
