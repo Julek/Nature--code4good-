@@ -15,6 +15,7 @@
             android:id="@+id/my_nature"
             android:layout_width="287dp"
             android:layout_height="88dp"
+            android:contentDescription="your nature"
             android:scaleType="fitXY"
             android:src="@drawable/tile1" />
 
@@ -22,13 +23,15 @@
             android:id="@+id/their_nature"
             android:layout_width="273dp"
             android:layout_height="110dp"
+            android:contentDescription="their nature"
             android:scaleType="fitXY"
             android:src="@drawable/tile3" />
 
         <ImageView
             android:id="@+id/augumented_reality"
             android:layout_width="260dp"
-            android:layout_height="92dp"
+            android:layout_height="78dp"
+            android:contentDescription="augumented reality"
             android:scaleType="fitXY"
             android:src="@drawable/augumented_reality" />
 
