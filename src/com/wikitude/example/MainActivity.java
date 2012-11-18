@@ -38,6 +38,7 @@ import com.Good.GeoNode;
 import com.Good.ServerCommunication;
 import com.Good.Geo.GeoLocation;
 import com.Good.Geo.GeoLocation.NoBearing;
+import com.Good.Geo.GeoLocation.NoClue;
 import com.wikitude.architect.ArchitectUrlListener;
 import com.wikitude.architect.ArchitectView;
 
@@ -156,9 +157,17 @@ public class MainActivity extends Activity implements ArchitectUrlListener, Loca
                 	ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,300));
                 	ll.setVisibility(View.VISIBLE);
             	} else {
-            		double lat = TEST_LATITUDE + ((Math.random() - 0.5) / 500); 
-            		double lon = TEST_LONGITUDE + ((Math.random() - 0.5) / 500); 
-            		double alt = TEST_ALTITUDE + ((Math.random() - 0.5) * 10);
+            		double lat = TEST_LATITUDE - 0.0001;
+            		double lon = TEST_LONGITUDE;
+            		double alt = TEST_ALTITUDE;
+					try {
+						lat = GeoLocation.getGeotag().getLattitude();
+						lon = GeoLocation.getGeotag().getLongitude();
+						alt = GeoLocation.getGeotag().getAltitude();
+					} catch (NoClue e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
            // 		callJavaScript("submitTag("+lat+","+lon+","+alt+");");
             		String type = ((Spinner) findViewById(R.id.SpinnerType)).getSelectedItem().toString();
             		String description = ((EditText) findViewById(R.id.PlantDescription)).getText().toString();
